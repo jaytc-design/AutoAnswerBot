@@ -21,7 +21,7 @@
         });
     }
 
-            if (!window.location.pathname.include('/play/')) {
+            if (!window.location.pathname.includes('/play/')) {
                 alert('You must be in a gold quest game!');
             } else {
                 while (window.location.pathname.includes('/play/')) {
