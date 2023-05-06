@@ -14,7 +14,7 @@
             setInterval(() => {
                 if (reactHandler().memoizedState.stage == "question") {
                     setTimeout(resolve,200)
-                } else if (!window.location.pathname.include('/play/')) {
+                } else if (!window.location.pathname.includes('/play/')) {
                     reject()
                 }
             }, 0);
@@ -24,7 +24,7 @@
             if (!window.location.pathname.include('/play/')) {
                 alert('You must be in a gold quest game!');
             } else {
-                while (window.location.pathname.include('/play/')) {
+                while (window.location.pathname.includes('/play/')) {
                     questionsPromise().then(() => {
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
                             const element = jQuery(this)
