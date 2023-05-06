@@ -7,7 +7,7 @@
     n.remove();
 
     function reactHandler() {
-        return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+        return Object.values(document.querySelector('#app > div > div'))[1].children[0]._owner;
     };
     function questionsPromise() {
         return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@
                 alert('You must be in a game!');
             } else {
                 while (window.location.pathname.includes('/play/')) {
-                    //sleep(50)
+                    sleep(50)
                     try {
                         await questionsPromise();
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
