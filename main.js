@@ -15,32 +15,36 @@
                 if (reactHandler().memoizedState.stage == "question") {
                     setTimeout(resolve,200)
                 } else if (!window.location.pathname.includes('/play/')) {
-                    reject()
+                    reject("You must be in a game!")
                 }
             }, 0);
         });
     }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+     }
 
             if (!window.location.pathname.includes('/play/')) {
-                alert('You must be in a gold quest game!');
+                alert('You must be in a game!');
             } else {
                 while (window.location.pathname.includes('/play/')) {
-                    sleep(50)
-                    questionsPromise().then(() => {
+                    //sleep(50)
+                    try {
+                        await questionsPromise();
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
                             const element = jQuery(this)
                             const answers = reactHandler().stateNode.state.question.correctAnswers
                             const innerHTML = element.children().children().children()[0].innerHTML
-      
+                      
                             if (answers.includes(innerHTML)) {
-                              element.trigger("click")
-                              return false
+                                element.trigger("click")
+                                return false
                             }
-                          })
-                    }).catch(() => {
-                        alert('You must be in a game!');
-                        
-                    })
+                        })
+                    } catch (e) {
+                        alert(e);
+                        break;
+                    }
                 }
             };
 })();
