@@ -25,6 +25,7 @@
                 alert('You must be in a gold quest game!');
             } else {
                 while (window.location.pathname.includes('/play/')) {
+                    sleep(50)
                     questionsPromise().then(() => {
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
                             const element = jQuery(this)
