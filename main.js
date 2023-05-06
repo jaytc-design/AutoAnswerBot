@@ -13,25 +13,40 @@
                   setInterval(() => {
                     if (reactHandler().memoizedState.stage == "question") {
                         setTimeout(resolve,200)
+                    } else if (!window.location.pathname.include('/play/')) {
+                        reject()
                     }
                   }, 0);
                 });
             }
 
-            if (window.location.pathname != '/play/') {
+            if (!window.location.pathname.include('/play/')) {
                 alert('You must be in a gold quest game!');
             } else {
-                await() questionsPromise();
-                jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
-                  const element = jQuery(this)
-                  const answers = reactHandler().stateNode.state.question.correctAnswers
-                  const innerHTML = element.children().children().children()[0].innerHTML
+                var interval;
+                interval = setInterval(() => {
+                    if (!window.location.pathname.include('/play/')) {
+                        clearInterval(interval)
+                        return
+                    }
+                
+                    await() questionsPromise();
+                    
+                    
+                        clearInterval(interval)
+                        return
+                    }
+                    
+                    jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
+                      const element = jQuery(this)
+                      const answers = reactHandler().stateNode.state.question.correctAnswers
+                      const innerHTML = element.children().children().children()[0].innerHTML
 
-                  if (answers.includes(innerHTML)) {
-                    element.trigger("click")
-                    return false
-                  }
-                })
-
+                      if (answers.includes(innerHTML)) {
+                        element.trigger("click")
+                        return false
+                      }
+                    })
+                },0);
             };
 })();
