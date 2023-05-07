@@ -20,15 +20,11 @@
             }, 0);
         });
     }
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-     }
-
+    
             if (!window.location.pathname.includes('/play/')) {
                 alert('You must be in a game!');
             } else {
                 while (window.location.pathname.includes('/play/')) {
-                    sleep(50)
                     try {
                         await questionsPromise();
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
