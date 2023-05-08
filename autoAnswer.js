@@ -8,40 +8,40 @@
 
     function reactHandler() {
         return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
-    }
+    };
     function questionsPromise() {
         return new Promise((resolve, reject) => {
             setInterval(() => {
                 if (reactHandler().memoizedState.stage == "question") {
-                    setTimeout(resolve,200)
+                    setTimeout(resolve,200);
                 } else if (!window.location.pathname.includes('/play/')) {
-                    reject("You must be in a game!")
-                }
+                    reject("You must be in a game!");
+                };
             }, 0);
         });
-    }
+    };
     
             if (!window.location.pathname.includes('/play/')) {
                 alert('You must be in a game!');
             } else {
-                alert("Loaded!")
+                alert("Loaded!");
                 while (window.location.pathname.includes('/play/')) {
                     try {
                         await questionsPromise();
                         jQuery(".styles__answerContainer___3WS-k-camelCase").each(function() { 
-                            const element = jQuery(this)
-                            const answers = reactHandler().stateNode.state.question.correctAnswers
-                            const innerHTML = element.children().children().children()[0].innerHTML
+                            const element = jQuery(this);
+                            const answers = reactHandler().stateNode.state.question.correctAnswers;
+                            const innerHTML = element.children().children().children()[0].innerHTML;
                       
                             if (answers.includes(innerHTML)) {
-                                element.trigger("click")
-                                return false
-                            }
-                        })
+                                element.trigger("click");
+                                return false;
+                            };
+                        });
                     } catch (e) {
                         alert(e);
                         break;
-                    }
-                }
+                    };
+                };
             };
 })();
