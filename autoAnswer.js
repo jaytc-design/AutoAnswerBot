@@ -7,7 +7,8 @@
     n.remove();
 
     function reactHandler() {
-        return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+        const children = Object.values(document.querySelector('#app > div > div'))[1].children;
+        return (children[1] || children[0])._owner;
     };
     function questionsPromise() {
         return new Promise((resolve, reject) => {
