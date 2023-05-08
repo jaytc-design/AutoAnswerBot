@@ -25,6 +25,7 @@
             if (!window.location.pathname.includes('/play/')) {
                 alert('You must be in a game!');
             } else {
+                alert("Loaded!")
                 while (window.location.pathname.includes('/play/')) {
                     try {
                         await questionsPromise();
