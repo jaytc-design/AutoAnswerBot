@@ -7,9 +7,8 @@
     n.remove();
 
     function reactHandler() {
-        const children = Object.values(document.querySelector('#app > div > div'))[1].children
-        return (children[1] && children[1]._owner) || (children[0] && children[0]._owner);
-    };
+        return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+    }
     function questionsPromise() {
         return new Promise((resolve, reject) => {
             setInterval(() => {
