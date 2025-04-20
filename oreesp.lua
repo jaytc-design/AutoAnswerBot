@@ -700,6 +700,8 @@ for i,v in pairs(v3) do
 			Hardness = v.Hardness,
 			Value = v.Value or 0,
 			Type = v.Types and getFirst(v.Types) or nil,
+			Color = v.Appearance and v.Appearance.Color or Color3.new(),
+			Name = v.Name or v.Id
 		}
 	end
 end
@@ -717,10 +719,11 @@ local function isEdge(a, b)
 end
 
 local function highlightPart(part)
+	local blockData = mineData[part:GetAttribute("MineId")]
+
 	local lines = {}
 
 	local size = part.Size
-	local center = part.CFrame
 
 	local corners = {}
 	for x = -1, 1, 2 do
@@ -732,14 +735,11 @@ local function highlightPart(part)
 		end
 	end
 
-	local edgesDone = {}
-
 	for i = 1, #corners do
 		for j = i + 1, #corners do
 			local a = corners[i]
 			local b = corners[j]
 			if isEdge(a, b) then
-				local edgeCFrame = CFrame.lookAt(a, b)
 
 				local line = Instance.new("LineHandleAdornment",part)
 				line.Name = "Line" .. i
@@ -752,12 +752,39 @@ local function highlightPart(part)
 				line.Transparency = .05
 				line.Length = (b - a).Magnitude
 				line.Color3 = part:FindFirstChild("SurfaceAppearance") and part.SurfaceAppearance.Color or Color3.fromRGB(255, 255, 255)
-				line.CFrame = edgeCFrame
+				line.CFrame = CFrame.lookAt(a, b)
 				
 				table.insert(lines,line)
 			end
 		end
 	end
+
+	local BillboardGui = Instance.new("BillboardGui", part)
+	BillboardGui.Name = "NameTag"
+	BillboardGui.Adornee = part
+	BillboardGui.AlwaysOnTop = true
+	BillboardGui.Enabled = true
+	BillboardGui.ExtentsOffsetWorldSpace = Vector3.new(0,1,0)
+	BillboardGui.StudsOffsetWorldSpace = Vector3.new(0,1,0)
+	BillboardGui.LightInfluence = 0
+	BillboardGui.ResetOnSpawn = false
+	BillboardGui.Size = UDim2.new(6,0,2,0)
+	BillboardGui.ClipsDescendants = false
+
+	local TextLabel = Instance.new("TextLabel",BillboardGui)
+	TextLabel.AnchorPoint = Vector2.zero
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.Position = UDim2.new(0,0,0,0)
+	TextLabel.Size = UDim2.fromScale(1,1)
+	TextLabel.Visible = true
+	TextLabel.ClipsDescendants = false
+	TextLabel.TextScaled = true
+
+	TextLabel.Text = blockData.Name
+	TextLabel.TextColor3 = blockData.Color
+
+	table.insert(lines,BillboardGui)
+
 	return lines
 end
 
