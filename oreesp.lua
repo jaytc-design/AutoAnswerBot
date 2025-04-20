@@ -768,6 +768,7 @@ local function highlightPart(part)
 	BillboardGui.StudsOffsetWorldSpace = Vector3.new(0,1,0)
 	BillboardGui.LightInfluence = 0
 	BillboardGui.ResetOnSpawn = false
+	BillboardGui.MaxDistance = 200
 	BillboardGui.Size = UDim2.new(6,0,2,0)
 	BillboardGui.ClipsDescendants = false
 
